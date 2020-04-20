@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "641614266615",
+    "firebase_url": "https://coviid-30f78.firebaseio.com",
+    "project_id": "coviid-30f78",
+    "storage_bucket": "coviid-30f78.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641614266615:android:e5b035a0a1368a1e6cd3f2",
+        "android_client_info": {
+          "package_name": "com.coviid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641614266615-48s9u4obusmo9i4e7tre54dr5di70k9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3uRRF9HlnQJF1Mbe4h1PJ54ScIvbPXuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641614266615-48s9u4obusmo9i4e7tre54dr5di70k9k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
