@@ -12,13 +12,13 @@
 # Index
 
 #### [Introduction to the Covi ID Application](#introduction-to-the-covi-id-application)
-#### [How the app works](#introduction-to-Covi-id:-what-is-it?)
+#### [How the app works](#how-the-app-works)
 * [Privacy Preserving Technology at the Core of the Application’s Design](#privacy-preserving-technology-at-the-core-of-the-applications-design)
 * [Four Key Functionalities of the Web Application](#four-key-functionalities-of-the-web-application)
 * [Interoperability](#interoperability)
 #### [Project Details](#project-details)
 * [Getting started](#getting-started)
-* [Learn More About React App](#learn-more-about-react-app)
+* [Learn More About React Native App](#learn-more-about-react-native-app)
 
 This repository is for the web app of [Covi-ID](https://coviid.me/). This product was designed with data privacy and privacy-preserving considerations at the core of its architecture. This was done by permitting the creation of Covi-ID wallets in the form of self-sovereign identities. This is facilitated by employing StreetCred, the custodian wallet holder. In essence, this will allow individuals to prove you do not pose a public health risk. 
 
