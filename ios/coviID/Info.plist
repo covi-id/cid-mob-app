@@ -22,6 +22,8 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CodePushDeploymentKey</key>
+	<string>jRien0Ojdkr9BjjNwhSnNwoIBR3zQ6FtBRvxd</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -38,34 +40,29 @@
 		</dict>
 	</dict>
 	<key>NSCalendarsUsageDescription</key>
-	<string>Allow coviID to access your calendar</string>
+	<string>Allow Covi-ID to access your calendar</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Allow coviID to use the camera</string>
+	<string>Allow Covi-ID to use the camera</string>
 	<key>NSContactsUsageDescription</key>
-	<string>Allow coviID experiences to access your contacts</string>
+	<string>Allow Covi-ID experiences to access your contacts</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>For keychain encryption and access</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Allow coviID to use your location</string>
+	<string>Allow Covi-ID to use your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Allow coviID to use your location</string>
+	<string>Allow Covi-ID to use your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Allow coviID to use your location</string>
+	<string>Allow Covi-ID to use your location</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Allow coviID to access your microphone</string>
+	<string>Allow Covi-ID to access your microphone</string>
 	<key>NSMotionUsageDescription</key>
-	<string>Allow coviID to access your device's accelerometer</string>
+	<string>Allow Covi-ID to access your device's accelerometer</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Give coviID periences permission to save photos</string>
+	<string>Give Covi-ID periences permission to save photos</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Give coviID periences permission to access your photos</string>
+	<string>Give Covi-ID periences permission to access your photos</string>
 	<key>NSRemindersUsageDescription</key>
-	<string>Allow coviID to access your reminders</string>
-	<key>UIBackgroundModes</key>
-	<array>
-		<string>fetch</string>
-		<string>location</string>
-	</array>
+	<string>Allow Covi-ID to access your reminders</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Launch Screen</string>
 	<key>UIRequiredDeviceCapabilities</key>

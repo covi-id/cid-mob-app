@@ -1,5 +1,8 @@
 package com.coviid;
 
+import android.annotation.SuppressLint;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.facebook.react.ReactActivity;
@@ -29,9 +32,13 @@ public class MainActivity extends ReactActivity {
         };
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         SplashScreen.show(this, R.style.AppTheme);
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 }

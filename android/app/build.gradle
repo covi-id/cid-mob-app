@@ -93,6 +93,7 @@ project.ext.react = [
 
 apply from: '../../node_modules/react-native-unimodules/gradle.groovy'
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -109,7 +110,7 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def pass = getPassword("Admin","android_keystore")
+def pass = getPassword("Admin","android_coviid_keystore")
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -119,7 +120,7 @@ android {
         applicationId "com.coviid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 3
+        versionCode 4
         versionName "1.0"
         missingDimensionStrategy 'react-native-camera', 'general'
     }

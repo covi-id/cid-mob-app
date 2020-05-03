@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, AppRegistry } from 'react-native';
-import messaging from '@react-native-firebase/messaging';
-import App from './App';
+import { AppRegistry } from 'react-native';
+import App from './src/App';
 
 AppRegistry.registerComponent('coviID', () => App);

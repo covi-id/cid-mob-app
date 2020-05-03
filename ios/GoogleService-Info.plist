@@ -3,34 +3,34 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>313976267521-1id0lsbf29mu1lr2v5sl634u8bbbtonc.apps.googleusercontent.com</string>
+	<string>641614266615-p2r34csmagbf6icv9lk5urmffo4r4mis.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.313976267521-1id0lsbf29mu1lr2v5sl634u8bbbtonc</string>
+	<string>com.googleusercontent.apps.641614266615-p2r34csmagbf6icv9lk5urmffo4r4mis</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBsmdfOlGpzG5fg7ifUOzFaE3fV69uHPp0</string>
+	<string>AIzaSyB5K-PeUIin6fPl1BZ4d5iSPUtUHwkEGok</string>
 	<key>GCM_SENDER_ID</key>
-	<string>313976267521</string>
+	<string>641614266615</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>thedelta.io.coviid.nick</string>
+	<string>com.coviid.verifier</string>
 	<key>PROJECT_ID</key>
-	<string>coviidnick</string>
+	<string>coviid-30f78</string>
 	<key>STORAGE_BUCKET</key>
-	<string>coviidnick.appspot.com</string>
+	<string>coviid-30f78.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:313976267521:ios:8bbc59e8a1ffec1f513100</string>
+	<string>1:641614266615:ios:343c07cd674e92de6cd3f2</string>
 	<key>DATABASE_URL</key>
-	<string>https://coviidnick.firebaseio.com</string>
+	<string>https://coviid-30f78.firebaseio.com</string>
 </dict>
 </plist>

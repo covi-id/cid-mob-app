@@ -11,21 +11,21 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		75DCCD0756C1A389089C5EDF /* libPods-coviID.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CA68B916E1F1A59EA1D0D8B3 /* libPods-coviID.a */; };
+		84D2D444244F16E700B60B02 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84D2D443244F16E700B60B02 /* GoogleService-Info.plist */; };
 		84DD65472445A5950021D8BC /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84DD65462445A5950021D8BC /* Launch Screen.storyboard */; };
-		84E8A1822445C83E00F644E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84E8A1812445C83E00F644E4 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* coviID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = coviID.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07F961A680F5B00A75B9A /* Covi-ID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Covi-ID.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = coviID/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = coviID/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = coviID/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = coviID/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = coviID/main.m; sourceTree = "<group>"; };
 		77699D48D589882D3331A806 /* libPods-coviID-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-coviID-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84D2D443244F16E700B60B02 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84DD65462445A5950021D8BC /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
-		84E8A1812445C83E00F644E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84F4DDF019798FFA904F6E78 /* Pods-coviID.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-coviID.release.xcconfig"; path = "Target Support Files/Pods-coviID/Pods-coviID.release.xcconfig"; sourceTree = "<group>"; };
 		9044A89FFF543844A45D9E72 /* libPods-coviIDTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-coviIDTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		94ED28948D67AB7412D9A44F /* libPods-coviID-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-coviID-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -93,7 +93,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				84E8A1812445C83E00F644E4 /* GoogleService-Info.plist */,
+				84D2D443244F16E700B60B02 /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* coviID */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -108,7 +108,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* coviID.app */,
+				13B07F961A680F5B00A75B9A /* Covi-ID.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,7 +135,7 @@
 			);
 			name = coviID;
 			productName = coviID;
-			productReference = 13B07F961A680F5B00A75B9A /* coviID.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* Covi-ID.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -148,8 +148,8 @@
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = NAJGJY6773;
-						ProvisioningStyle = Automatic;
+						DevelopmentTeam = 4P35N686KK;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -178,7 +178,7 @@
 			files = (
 				84DD65472445A5950021D8BC /* Launch Screen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				84E8A1822445C83E00F644E4 /* GoogleService-Info.plist in Resources */,
+				84D2D444244F16E700B60B02 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -280,11 +280,11 @@
 			baseConfigurationReference = BE752BF8FECE7EDCF8B75E33 /* Pods-coviID.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = NAJGJY6773;
+				DEVELOPMENT_TEAM = 4P35N686KK;
 				INFOPLIST_FILE = coviID/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -292,9 +292,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.coviid;
-				PRODUCT_NAME = coviID;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.coviid.verifier;
+				PRODUCT_NAME = "Covi-ID";
+				PROVISIONING_PROFILE_SPECIFIER = "com.coviid.verifier distribution";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -304,10 +304,10 @@
 			baseConfigurationReference = 84F4DDF019798FFA904F6E78 /* Pods-coviID.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = NAJGJY6773;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 3;
+				DEVELOPMENT_TEAM = 4P35N686KK;
 				INFOPLIST_FILE = coviID/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -315,9 +315,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.coviid;
-				PRODUCT_NAME = coviID;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.coviid.verifier;
+				PRODUCT_NAME = "Covi-ID";
+				PROVISIONING_PROFILE_SPECIFIER = "com.coviid.verifier distribution";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
