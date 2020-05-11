@@ -28,6 +28,7 @@ export default function StyledButton({
   iconRight,
   title,
   titleColor,
+  backgroundColor,
   ...props
 }) {
   const { colors, sizes, fonts } = useTheme();
@@ -47,15 +48,16 @@ export default function StyledButton({
       height: iconLeft ? 60 : 50,
       backgroundColor: disabled
         ? colors.grey
-        : auth
-        ? '#27066B'
-        : alternative
-        ? colors.secondary
-        : dark
-        ? colors.background
-        : basic
-        ? 'transparent'
-        : colors.primary,
+        : backgroundColor ||
+          (auth
+            ? '#27066B'
+            : alternative
+            ? colors.secondary
+            : dark
+            ? colors.background
+            : basic
+            ? 'transparent'
+            : colors.primary),
       width: loading ? loadingValue.width : loadingWidth || (auth ? width / 1.5 : 'auto'),
       borderRadius: loadingValue.borderRadius,
       flexWrap: 'wrap',
@@ -107,7 +109,10 @@ export default function StyledButton({
   if (loading && loadingWidth) {
     loadingAnimation(loadingWidth, 50, 50, 50 / 2, 1, 0);
   } else if (loadingWidth) {
-    loadingAnimation(50, loadingWidth, 50, 50 / 2, 0, 1);
+    // loadingAnimation(50, loadingWidth, 50, 50 / 2, 0, 1);
+    loadingValue.width.setValue(50);
+    loadingValue.opacity.setValue(loadingWidth);
+    loadingValue.borderRadius.setValue(50);
   }
 
   function loadingAnimation(widthStart, widthEnd, borderRadiusStart, borderRadiusEnd, opacityStart, opacityEnd) {

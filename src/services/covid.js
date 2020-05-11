@@ -1,26 +1,37 @@
 import api from '../utils/api';
+import { getLocation } from './location';
 
-export async function submitQR(id, params, url) {
-  let response;
-  if (!url) {
-    response = await api.get('', { baseURL: id, params });
-  } else {
-    response = await api.get(`Verifier/${id}/covid-credentials`, { params, baseURL: url });
-  }
+export async function submitQR(walletId, key) {
+  const response = await api.post(`wallets/${walletId}/status`, { key });
   return response.data;
 }
 
-export async function getOrganisationQR(id, url) {
-  let response;
-  if (!url) {
-    response = await api.get('', { baseURL: id });
-  } else {
-    response = await api.get(`organisation/${id}`, { baseURL: url });
-  }
+export async function getOrganisationQR(id) {
+  const response = await api.get(`organisation/${id}`);
   return response.data;
 }
 
 export async function subtractCount(id, deviceIdentifier, url) {
   const response = await api.put(`organisation/subtract/${id}`, { deviceIdentifier }, { baseURL: url });
+  return response.data;
+}
+
+export async function checkIn(id, walletId) {
+  const location = await getLocation();
+  const response = await api.post(`organisations/${id}/check_in`, {
+    walletId,
+    lat: location.coords.latitude,
+    long: location.coords.longitude,
+  });
+  return response.data;
+}
+
+export async function checkOut(id, walletId) {
+  const location = await getLocation();
+  const response = await api.post(`organisations/${id}/check_out`, {
+    walletId,
+    lat: location.coords.latitude,
+    long: location.coords.longitude,
+  });
   return response.data;
 }

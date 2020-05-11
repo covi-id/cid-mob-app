@@ -4,13 +4,13 @@ import { useTheme } from '@react-navigation/native';
 import { RNCamera } from 'react-native-camera';
 import { BarcodeMask } from '@nartc/react-native-barcode-mask';
 import Modal from 'react-native-modal';
-import { checkLocationPermission } from '../../../services/location';
-import { SubHeading, StyledButton } from '../../../components';
-import { PurpleCircleSvg, LogoAlternativeSvg, CameraSvg, FadedDotsSvg } from '../../../assets/svgs';
+import { checkLocationPermission } from '../../services/location';
+import { SubHeading, StyledButton } from '../../components';
+import { PurpleCircleSvg, LogoAlternativeSvg, CameraSvg, FadedDotsSvg } from '../../assets/svgs';
 
 const { width, height } = Dimensions.get('window');
 
-export default function ScanModal({ visible, setVisible, onRead, userType }) {
+export default function ScanModal({ navigation, userType }) {
   const [locationPermission, setLocationPermission] = useState();
   const theme = useTheme();
   const styles = styleSheet(theme);
@@ -42,20 +42,7 @@ export default function ScanModal({ visible, setVisible, onRead, userType }) {
   );
 
   return (
-    <Modal
-      backdropOpacity={1}
-      backdropColor={theme.colors.primaryAccent}
-      isVisible={visible}
-      style={styles.container}
-      onBackButtonPress={() => setVisible(false)}
-      animationIn="fadeInDown"
-      animationOut="fadeOutUp"
-      deviceHeight={height}
-      useNativeDriver
-      // enable this for RN 0.62 and remove StatusBar: statusBarTranslucent
-      hideModalContentWhileAnimating
-      backdropTransitionOutTiming={0}
-    >
+    <View style={styles.container}>
       <StatusBar
         barStyle="light-content"
         backgroundColor={visible ? theme.colors.primary : theme.colors.background}
@@ -104,7 +91,7 @@ export default function ScanModal({ visible, setVisible, onRead, userType }) {
           <StyledButton style={styles.button} onPress={() => setVisible(false)} title="Close" />
         </View>
       </View>
-    </Modal>
+    </View>
   );
 }
 

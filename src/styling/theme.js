@@ -23,6 +23,8 @@ const defaultColors = {
   amber: '#FBD928',
   amberAccent: '#FBEFAF',
   amberBackground: '#FDEC93',
+  blue: '#09ABF0',
+  blueAccent: '#9AD2EB',
 };
 
 const sizes = {

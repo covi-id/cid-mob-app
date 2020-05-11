@@ -3,6 +3,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import LandingScreen from '../screens/landing';
 import SplashScreen from '../screens/SplashScreen';
 import ErrorScreen from '../screens/ErrorScreen';
+import ScanScreen from '../screens/landing/ScanScreen';
+import StatusScreen from '../screens/landing/StatusScreen';
 
 const MainStack = createStackNavigator();
 
@@ -27,6 +29,12 @@ function MainStackScreen() {
           },
         }}
       />
+      <MainStack.Screen
+        name="Status"
+        component={StatusScreen}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
+      <MainStack.Screen name="Scan" component={ScanScreen} options={{ headerShown: false, gestureEnabled: false }} />
       <MainStack.Screen name="Error" component={ErrorScreen} options={{ headerShown: false, gestureEnabled: false }} />
     </MainStack.Navigator>
   );

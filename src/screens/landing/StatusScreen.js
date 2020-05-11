@@ -4,13 +4,14 @@ import { useTheme } from '@react-navigation/native';
 import Modal from 'react-native-modal';
 import Snackbar from 'react-native-snackbar';
 import crashlytics from '@react-native-firebase/crashlytics';
-import { checkIn, checkOut } from '../../../services/covid';
-import { Container, Heading, StyledButton, ProfileImage, StyledText, StyledIcon } from '../../../components';
+import { checkIn, checkOut } from '../../services/covid';
+import { Container, Heading, StyledButton, ProfileImage, StyledText, StyledIcon } from '../../components';
 
 const { width, height } = Dimensions.get('screen');
 
-export default function StatusModal({ profile, organisation, walletId, url, visible, setVisible, loadOrganisation }) {
+export default function StatusScreen({ navigation, route }) {
   const [loading, setLoading] = useState();
+  const { profile, organisation, walletId, url, loadOrganisation } = route.params;
   const { resultStatus, firstName, lastName, photoUrl } = profile;
   const theme = useTheme();
   const status =
@@ -29,7 +30,7 @@ export default function StatusModal({ profile, organisation, walletId, url, visi
     try {
       await checkIn(organisation.id, walletId, url);
       loadOrganisation();
-      setVisible(false);
+      navigation.goBack();
     } catch (err) {
       // display snackbar
       console.log(err);
@@ -55,7 +56,7 @@ export default function StatusModal({ profile, organisation, walletId, url, visi
     try {
       await checkOut(organisation.id, walletId, url);
       loadOrganisation();
-      setVisible(false);
+      navigation.goBack();
     } catch (err) {
       // display snackbar
       console.log(err);
@@ -75,27 +76,9 @@ export default function StatusModal({ profile, organisation, walletId, url, visi
   }
 
   return (
-    <Modal
-      backdropOpacity={1}
-      backdropColor={theme.colors[status]}
-      isVisible={visible}
-      style={styles.container}
-      onBackButtonPress={() => setVisible(false)}
-      animationIn="fadeInDown"
-      animationOut="fadeOutUp"
-      deviceHeight={height}
-      useNativeDriver
-      // enable this for RN 0.62 and remove StatusBar: statusBarTranslucent
-      hideModalContentWhileAnimating
-      backdropTransitionOutTiming={0}
-    >
+    <View style={styles.container}>
       <View style={styles.backgroundContainer} />
       <Container padding={null}>
-        <StatusBar
-          barStyle="light-content"
-          backgroundColor={visible ? theme.colors.primary : theme.colors.background}
-          translucent
-        />
         <View>
           <View style={styles.titleContainer}>
             <Heading dark bold>{`${firstName} ${lastName}`}</Heading>
@@ -127,17 +110,18 @@ export default function StatusModal({ profile, organisation, walletId, url, visi
         <StyledButton
           basic
           style={styles.button}
-          onPress={() => setVisible(false)}
+          onPress={() => navigation.goBack()}
           title={organisation ? 'Cancel' : 'OK'}
         />
       </Container>
-    </Modal>
+    </View>
   );
 }
 
 const styleSheet = ({ colors, sizes }, status) => ({
   container: {
     flex: 1,
+    backgroundColor: colors[status],
   },
   iconContainer: {
     flexDirection: 'row',
@@ -153,16 +137,16 @@ const styleSheet = ({ colors, sizes }, status) => ({
     height: height / 1.6,
     width,
     position: 'absolute',
-    left: -20,
+    left: 0,
     right: 0,
-    bottom: -20,
+    bottom: 0,
     overflow: 'hidden',
-    borderTopRightRadius: 105,
+    borderTopRightRadius: 100,
     borderWidth: 2,
     borderColor: colors.background,
   },
   image: {
-    marginTop: 65,
+    marginTop: 55,
   },
   button: {
     alignSelf: 'center',

@@ -53,9 +53,9 @@ export default function SplashScreen({ navigation }) {
   async function fetchOrganisation() {
     try {
       const data = await getOrganisation();
-      const url = await getURL();
-      if (data && url) {
-        const response = await getOrganisationQR(data.id, url);
+      // const url = await getURL();
+      if (data) {
+        const response = await getOrganisationQR(data.id);
         if (
           (response && response.data && !store.organisation) ||
           response.data.total !== store.organisation.total ||

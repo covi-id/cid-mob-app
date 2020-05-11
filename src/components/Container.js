@@ -24,7 +24,7 @@ export default function Container({ children, scroll, padding = true, ...props }
   return (
     <View style={[styles.container, props.style]}>
       <ScrollView
-        scrollEnabled={scrollEnabled}
+        // scrollEnabled={scrollEnabled}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={[styles.contentContainer, props.contentStyle]}
         onContentSizeChange={(width, contentHeight) => {

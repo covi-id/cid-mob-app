@@ -30,6 +30,7 @@ import {
 
 export default function LandingScreen({ navigation, route }) {
   const [scanVisible, setScanVisible] = useState(false);
+  const [walletId, setWalletId] = useState();
   const [loading, setLoading] = useState(false);
   const [statusVisible, setStatusVisible] = useState();
   const [userType, setUserType] = useState(
@@ -42,6 +43,9 @@ export default function LandingScreen({ navigation, route }) {
   const styles = styleSheet(theme);
   const deviceId = DeviceInfo.getUniqueId();
 
+  // organisation = { url: '', name: 'Old Mutual' };
+  // url = 'asd';
+
   // -- get organisation from storage
   useEffect(() => {
     loadOrganisation();
@@ -50,15 +54,15 @@ export default function LandingScreen({ navigation, route }) {
   async function loadOrganisation() {
     try {
       const data = await getOrganisation();
-      let endpoint = url;
-      if (!endpoint) {
-        endpoint = await getURL();
-        if (endpoint) {
-          dispatch(actions.setURL(endpoint));
-        }
-      }
-      if (data && endpoint) {
-        const response = await getOrganisationQR(data.id, endpoint);
+      // let endpoint = url;
+      // if (!endpoint) {
+      //   endpoint = await getURL();
+      //   if (endpoint) {
+      //     dispatch(actions.setURL(endpoint));
+      //   }
+      // }
+      if (data) {
+        const response = await getOrganisationQR(data.id);
         if (
           (response && response.data && !organisation) ||
           response.data.total !== organisation.total ||
@@ -75,9 +79,9 @@ export default function LandingScreen({ navigation, route }) {
 
   async function logout() {
     setTimeout(() => {
-      dispatch(actions.setURL(null));
+      // dispatch(actions.setURL(null));
       dispatch(actions.setOrganisation(null));
-      deleteURL();
+      // deleteURL();
       deleteOrganisation();
     }, 500);
     navigation.reset({ index: 0, routes: [{ name: 'Landing', params: { reset: true } }] });
@@ -105,13 +109,13 @@ export default function LandingScreen({ navigation, route }) {
   async function onRead(barcode) {
     const { data } = barcode;
     if (data && !loading) {
-      const matches = data.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i);
-      const domain = matches && matches[0];
-      const endpoint = `${domain}api/`;
-      if (endpoint && (!url || endpoint !== url)) {
-        dispatch(actions.setURL(endpoint));
-        saveURL(endpoint);
-      }
+      // const matches = data.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i);
+      // const domain = matches && matches[0];
+      // const endpoint = `${domain}api/`;
+      // if (endpoint && (!url || endpoint !== url)) {
+      //   dispatch(actions.setURL(endpoint));
+      //   saveURL(endpoint);
+      // }
 
       setScanVisible(false);
       setLoading(true);
@@ -129,22 +133,28 @@ export default function LandingScreen({ navigation, route }) {
             backgroundColor: theme.colors.red,
           });
           crashlytics().log(`Could not get organisation information. QR data: ${data}`);
+        } finally {
+          setTimeout(() => setLoading(false), 500);
         }
         return;
       }
 
       try {
-        let params;
-        if (organisation && organisation.id) {
-          params = { organisationId: organisation.id, devideIdentifier: deviceId };
-        }
-        const response = await submitQR(data, params);
-        if (response && response.data && response.data.covidStatus) {
+        // let params;
+        // if (organisation && organisation.id) {
+        //   params = { organisationId: organisation.id, devideIdentifier: deviceId };
+        // }
+        const parsed = JSON.parse(data);
+        const response = await submitQR(parsed.walletId, parsed.key);
+        if (response && response.data && response.data.resultStatus) {
+          setWalletId(data.wallet);
           setProfile(response.data);
-          setStatusVisible(true);
-          if (organisation && organisation.id) {
-            loadOrganisation();
-          }
+          navigation.navigate('Status', { profile: response.data, organisation, url, walletId, loadOrganisation });
+
+          // setStatusVisible(true);
+          // if (organisation && organisation.id) {
+          //   loadOrganisation();
+          // }
         } else {
           Snackbar.show({
             text: 'Could not get results. Please try again.',
@@ -168,35 +178,36 @@ export default function LandingScreen({ navigation, route }) {
         crashlytics().log(`Could not get test results. QR data: ${data}`);
         crashlytics().recordError(err);
       } finally {
-        setLoading(false);
+        setTimeout(() => setLoading(false), 500);
       }
     }
   }
-  const checkboxOptions = [
-    { label: 'An Individual', value: 'user' },
-    { label: 'An Organisation', value: 'organisation' },
-  ];
 
-  function renderUserSelect() {
+  function renderScanUser() {
     return (
       <View style={styles.contentContainer}>
-        <Heading bold style={styles.heading}>
-          {'What are\nyou?'}
-        </Heading>
-        <StyledCheckboxSelection
-          style={styles.selectionContainer}
-          setSelectedValues={setUserType}
-          selectedValues={userType}
-        >
-          {checkboxOptions}
-        </StyledCheckboxSelection>
+        <View style={styles.contentContainer}>
+          <ScanSvg style={styles.scanSvg} />
+          <Heading bold style={styles.heading}>
+            Scan a QR code
+          </Heading>
+        </View>
         <StyledButton
           loading={loading}
-          loadingWidth={130}
+          loadingWidth={150}
           alternative
-          title="Next"
+          title="Scan"
+          style={{ marginBottom: 100, marginTop: -100 }}
+          onPress={scan}
+        />
+        <StyledButton
+          loading={loading}
+          loadingWidth={150}
+          basic
+          titleColor={theme.colors.primary}
+          title="Log In"
           onPress={() => {
-            navigation.push('Landing', { userType: Array.isArray(userType) ? userType[0] : userType });
+            navigation.push('Landing', { userType: 'organisation' });
           }}
         />
       </View>
@@ -206,61 +217,49 @@ export default function LandingScreen({ navigation, route }) {
   function renderScanOrganisation() {
     return (
       <View style={styles.contentContainer}>
-        <ScanSvg style={styles.scanSvg} />
-        <Heading bold style={styles.headingScanOrganisation}>
-          Scan your organisation identifier
-        </Heading>
-        <StyledButton loading={loading} loadingWidth={130} alternative title="Scan" onPress={scan} />
-      </View>
-    );
-  }
-
-  function renderScanUser() {
-    return (
-      <View style={styles.contentContainer}>
-        <ScanSvg style={styles.scanSvg} />
-        <Heading bold style={styles.heading}>
-          Scan a QR code
-        </Heading>
-        <StyledButton loading={loading} loadingWidth={130} alternative title="Scan" onPress={scan} />
+        <View style={styles.contentContainer}>
+          <ScanSvg style={styles.scanSvg} />
+          <Heading bold style={styles.headingScanOrganisation}>
+            {'Scan Organisation\nQR Code'}
+          </Heading>
+        </View>
+        <StyledButton
+          loading={loading}
+          loadingWidth={130}
+          alternative
+          title="Scan"
+          onPress={scan}
+          style={{ marginBottom: 100, marginTop: -100 }}
+        />
       </View>
     );
   }
 
   function renderOrganisation() {
     return (
-      <View style={styles.organisationContainer}>
-        <View style={styles.scanContainer}>
-          <ScanSvg style={styles.scanSvg} />
-          <Heading bold style={styles.headingOrganisation}>
-            Scan a QR code
-          </Heading>
+      <View style={styles.container}>
+        <View style={styles.organisationContainer}>
+          <View style={styles.counterContainer}>
+            <Heading bold style={styles.headingCounterText}>
+              Counter
+            </Heading>
+            <StyledText style={styles.counterText}>{organisation.balance ?? 0}</StyledText>
+            <StyledText bold style={styles.totalText}>{`Total Scans  -  ${organisation.total ?? 0}`}</StyledText>
+          </View>
           <StyledButton loading={loading} loadingWidth={130} alternative title="Scan" onPress={scan} />
         </View>
-        <View style={styles.counterContainer}>
-          <Heading bold style={styles.headingCounterText}>
-            Counter
-          </Heading>
-          <StyledText style={styles.counterText}>{organisation.balance ?? 0}</StyledText>
-          <StyledText bold style={styles.totalText}>{`Total Scans  -  ${organisation.total ?? 0}`}</StyledText>
-          <StyledButton
-            disabled={(organisation.balance ?? 0) <= 0}
-            loading={loading}
-            loadingWidth={160}
-            title="Subtract"
-            onPress={subtract}
-          />
-        </View>
         <View>
-          <StyledText bold>{`Logged into ${organisation.name}`}</StyledText>
-          <StyledButton basic title="Log out" onPress={logout} />
+          <StyledText style={{ color: theme.colors.grey }} bold>{`Logged into ${organisation.name}`}</StyledText>
+          <StyledButton titleColor={theme.colors.primary} basic title="Log out" onPress={logout} />
         </View>
       </View>
     );
   }
+
   const showBackButton =
     (route.params && route.params.userType === 'user') || (route.params && route.params.userType === 'organisation');
   const showOrganisationBackground = (!route.params || !route.params.userType) && organisation;
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
@@ -277,16 +276,23 @@ export default function LandingScreen({ navigation, route }) {
         <View style={styles.logoSvg}>
           <LogoSvg />
         </View>
-        {route.params && route.params.userType === 'user'
+        {(route && route.params && route.params.reset) ||
+        ((!route.params || (route.params && route.params.userType !== 'organisation')) && !organisation)
           ? renderScanUser()
           : route.params && route.params.userType === 'organisation'
           ? renderScanOrganisation()
-          : !organisation || (route && route.params && route.params.reset)
-          ? renderUserSelect()
           : renderOrganisation()}
       </Container>
-      <ScanModal visible={scanVisible} setVisible={setScanVisible} onRead={onRead} />
-      <StatusModal profile={profile} visible={statusVisible} setVisible={setStatusVisible} />
+      <ScanModal visible={scanVisible} setVisible={setScanVisible} onRead={onRead} userType={userType} />
+      {/* <StatusModal
+        profile={profile}
+        organisation={organisation}
+        url={url}
+        walletId={walletId}
+        visible={statusVisible}
+        loadOrganisation={loadOrganisation}
+        setVisible={setStatusVisible}
+      /> */}
     </View>
   );
 }
@@ -299,13 +305,14 @@ const styleSheet = ({ sizes, colors }) => ({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: sizes.margin,
   },
   selectionContainer: {
     marginBottom: sizes.margin,
   },
   organisationContainer: {
     flex: 1,
-    marginTop: sizes.margin * 2,
+    marginTop: sizes.margin,
     alignItems: 'center',
     justifyContent: 'space-around',
   },
@@ -336,7 +343,7 @@ const styleSheet = ({ sizes, colors }) => ({
   },
   headingScanOrganisation: {
     color: colors.textSecondary,
-    margin: sizes.margin * 2,
+    margin: sizes.margin,
     fontSize: 28,
   },
   headingCounterText: {
@@ -344,11 +351,11 @@ const styleSheet = ({ sizes, colors }) => ({
     fontSize: 24,
   },
   counterText: {
-    fontSize: 40,
+    fontSize: 70,
     color: colors.grey,
   },
   totalText: {
-    fontSize: 16,
+    fontSize: 18,
     color: colors.grey,
   },
   logoSvg: {
