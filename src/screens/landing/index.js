@@ -8,7 +8,6 @@ import { submitQR, getOrganisationQR, subtractCount } from '../../services/covid
 import { useGlobalStore } from '../../store';
 import actions from '../../store/actions';
 import ScanModal from './components/ScanModal';
-import StatusModal from './components/StatusModal';
 import {
   getOrganisation,
   saveOrganisation,
