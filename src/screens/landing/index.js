@@ -32,6 +32,7 @@ export default function LandingScreen({ navigation, route }) {
   const [scanVisible, setScanVisible] = useState(false);
   const [walletId, setWalletId] = useState();
   const [loading, setLoading] = useState(false);
+  const [scanning, setScanning] = useState(false);
   const [statusVisible, setStatusVisible] = useState();
   const [userType, setUserType] = useState(
     route && route.params && route.params.userType ? route.params.userType : 'user'
@@ -42,9 +43,6 @@ export default function LandingScreen({ navigation, route }) {
   const theme = useTheme();
   const styles = styleSheet(theme);
   const deviceId = DeviceInfo.getUniqueId();
-
-  // organisation = { url: '', name: 'Old Mutual' };
-  // url = 'asd';
 
   // -- get organisation from storage
   useEffect(() => {
@@ -91,50 +89,37 @@ export default function LandingScreen({ navigation, route }) {
     setScanVisible(true);
   }
 
-  async function subtract() {
-    setLoading(true);
-    try {
-      await subtractCount(organisation.id, deviceId, url);
-      loadOrganisation();
-    } catch (err) {
-      Snackbar.show({
-        text: 'Could not subtract from counter.',
-        duration: Snackbar.LENGTH_SHORT,
-        backgroundColor: theme.colors.red,
-      });
-    }
-    setLoading(false);
-  }
-
   async function onRead(barcode) {
     const { data } = barcode;
-    if (data && !loading) {
-      // const matches = data.match(/^https?:\/\/([^/?#]+)(?:[/?#]|$)/i);
-      // const domain = matches && matches[0];
-      // const endpoint = `${domain}api/`;
-      // if (endpoint && (!url || endpoint !== url)) {
-      //   dispatch(actions.setURL(endpoint));
-      //   saveURL(endpoint);
-      // }
-
+    if (data && !scanning) {
+      const matches = data.match(
+        /([0-9A-Fa-f]{8}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{4}[-][0-9A-Fa-f]{12})/
+      );
+      const organisationId = matches && matches[0];
       setScanVisible(false);
       setLoading(true);
+      setScanning(true);
 
       if (userType === 'organisation') {
         try {
-          const response = await getOrganisationQR(data);
+          const response = await getOrganisationQR(organisationId || data);
           dispatch(actions.setOrganisation(response.data));
           saveOrganisation(response.data);
           navigation.reset({ index: 0, routes: [{ name: 'Landing' }] });
         } catch (err) {
+          let message = 'Could not get organisation information. Please make sure the QR code is correct.';
+          if (err.response && err.response.data && err.response.data.meta && err.response.data.meta.code === 404) {
+            message = 'Could not find organisation for this QR code. Please make sure the QR code is correct';
+          }
           Snackbar.show({
-            text: 'Could not get organisation information. Please try again.',
+            text: message,
             duration: Snackbar.LENGTH_SHORT,
             backgroundColor: theme.colors.red,
           });
           crashlytics().log(`Could not get organisation information. QR data: ${data}`);
         } finally {
-          setTimeout(() => setLoading(false), 500);
+          setLoading(false);
+          setTimeout(() => setScanning(false), 500);
         }
         return;
       }
@@ -157,7 +142,7 @@ export default function LandingScreen({ navigation, route }) {
           // }
         } else {
           Snackbar.show({
-            text: 'Could not get results. Please try again.',
+            text: 'Could not get results. Please make sure the QR code is correct.',
             duration: Snackbar.LENGTH_SHORT,
             backgroundColor: theme.colors.red,
           });
@@ -166,7 +151,7 @@ export default function LandingScreen({ navigation, route }) {
       } catch (err) {
         // display snackbar
         console.log(err);
-        let message = 'Something went wrong';
+        let message = 'Could not get results. Please make sure the QR code is correct.';
         if (err.response && err.response.status === 404) {
           message = 'Could not find individual linked to this organisation.';
         }
@@ -178,7 +163,8 @@ export default function LandingScreen({ navigation, route }) {
         crashlytics().log(`Could not get test results. QR data: ${data}`);
         crashlytics().recordError(err);
       } finally {
-        setTimeout(() => setLoading(false), 500);
+        setLoading(false);
+        setTimeout(() => setScanning(false), 500);
       }
     }
   }
@@ -246,11 +232,21 @@ export default function LandingScreen({ navigation, route }) {
             <StyledText style={styles.counterText}>{organisation.balance ?? 0}</StyledText>
             <StyledText bold style={styles.totalText}>{`Total Scans  -  ${organisation.total ?? 0}`}</StyledText>
           </View>
-          <StyledButton loading={loading} loadingWidth={130} alternative title="Scan" onPress={scan} />
+          <View>
+            <StyledButton loading={loading} loadingWidth={180} alternative title="Scan" onPress={scan} />
+            <StyledButton
+              loading={loading}
+              alternative
+              loadingWidth={180}
+              backgroundColor="#E0DDF7"
+              title="Mobile Entry"
+              onPress={() => navigation.navigate('Mobile', { organisation, url, walletId, loadOrganisation })}
+            />
+          </View>
         </View>
         <View>
-          <StyledText style={{ color: theme.colors.grey }} bold>{`Logged into ${organisation.name}`}</StyledText>
-          <StyledButton titleColor={theme.colors.primary} basic title="Log out" onPress={logout} />
+          <StyledText bold>{`Logged into ${organisation.name}`}</StyledText>
+          <StyledButton titleColor={theme.colors.grey} basic title="Log out" onPress={logout} />
         </View>
       </View>
     );
@@ -284,15 +280,6 @@ export default function LandingScreen({ navigation, route }) {
           : renderOrganisation()}
       </Container>
       <ScanModal visible={scanVisible} setVisible={setScanVisible} onRead={onRead} userType={userType} />
-      {/* <StatusModal
-        profile={profile}
-        organisation={organisation}
-        url={url}
-        walletId={walletId}
-        visible={statusVisible}
-        loadOrganisation={loadOrganisation}
-        setVisible={setStatusVisible}
-      /> */}
     </View>
   );
 }

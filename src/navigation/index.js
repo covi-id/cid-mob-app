@@ -5,6 +5,7 @@ import SplashScreen from '../screens/SplashScreen';
 import ErrorScreen from '../screens/ErrorScreen';
 import ScanScreen from '../screens/landing/ScanScreen';
 import StatusScreen from '../screens/landing/StatusScreen';
+import MobileScreen from '../screens/landing/MobileScreen';
 
 const MainStack = createStackNavigator();
 
@@ -35,6 +36,11 @@ function MainStackScreen() {
         options={{ headerShown: false, gestureEnabled: false }}
       />
       <MainStack.Screen name="Scan" component={ScanScreen} options={{ headerShown: false, gestureEnabled: false }} />
+      <MainStack.Screen
+        name="Mobile"
+        component={MobileScreen}
+        options={{ headerShown: false, gestureEnabled: false }}
+      />
       <MainStack.Screen name="Error" component={ErrorScreen} options={{ headerShown: false, gestureEnabled: false }} />
     </MainStack.Navigator>
   );

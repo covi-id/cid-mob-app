@@ -14,13 +14,7 @@ export default function StatusScreen({ navigation, route }) {
   const { profile, organisation, walletId, url, loadOrganisation } = route.params;
   const { resultStatus, firstName, lastName, photoUrl } = profile;
   const theme = useTheme();
-  const status =
-    resultStatus &&
-    (resultStatus.toLowerCase() === 'positive'
-      ? 'red'
-      : resultStatus.toLowerCase() === 'negative' || resultStatus.toLowerCase() === 'untested'
-      ? 'amber'
-      : 'green');
+  const status = resultStatus && (resultStatus.toLowerCase() === 'positive' ? 'red' : 'green');
 
   const styles = styleSheet(theme, status);
   async function inPress() {

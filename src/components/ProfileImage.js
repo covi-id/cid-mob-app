@@ -8,7 +8,7 @@ const { width } = Dimensions.get('window');
 
 export default function ProfileImage({ status = 'red', source, ...props }) {
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(true);
+  const [error, setError] = useState();
   const { colors } = useTheme();
 
   const styles = {

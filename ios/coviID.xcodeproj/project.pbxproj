@@ -149,7 +149,7 @@
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
 						DevelopmentTeam = 4P35N686KK;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -280,8 +280,8 @@
 			baseConfigurationReference = BE752BF8FECE7EDCF8B75E33 /* Pods-coviID.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 4P35N686KK;
@@ -294,7 +294,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.coviid.verifier;
 				PRODUCT_NAME = "Covi-ID";
-				PROVISIONING_PROFILE_SPECIFIER = "com.coviid.verifier distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -304,8 +304,8 @@
 			baseConfigurationReference = 84F4DDF019798FFA904F6E78 /* Pods-coviID.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 4P35N686KK;
 				INFOPLIST_FILE = coviID/Info.plist;
@@ -317,7 +317,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.coviid.verifier;
 				PRODUCT_NAME = "Covi-ID";
-				PROVISIONING_PROFILE_SPECIFIER = "com.coviid.verifier distribution";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;

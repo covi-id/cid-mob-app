@@ -35,3 +35,23 @@ export async function checkOut(id, walletId) {
   });
   return response.data;
 }
+
+export async function checkInMobile(id, mobileNumber) {
+  const location = await getLocation();
+  const response = await api.post(`organisations/${id}/mobile_check_in`, {
+    mobileNumber,
+    lat: location.coords.latitude,
+    long: location.coords.longitude,
+  });
+  return response.data;
+}
+
+export async function checkOutMobile(id, mobileNumber) {
+  const location = await getLocation();
+  const response = await api.post(`organisations/${id}/mobile_check_out`, {
+    mobileNumber,
+    lat: location.coords.latitude,
+    long: location.coords.longitude,
+  });
+  return response.data;
+}
