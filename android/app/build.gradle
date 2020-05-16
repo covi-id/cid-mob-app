@@ -111,6 +111,9 @@ def enableSeparateBuildPerCPUArchitecture = false
 def enableProguardInReleaseBuilds = false
 
 def pass = getPassword("Admin","android_coviid_keystore")
+def codepushDev = getPassword("Admin","android_coviid_codepush_dev")
+def codepushStaging = getPassword("Admin","android_coviid_codepush_staging")
+def codepushProd = getPassword("Admin","android_coviid_codepush_prod")
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -120,10 +123,30 @@ android {
         applicationId "com.coviid"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 5
+        versionCode 6
         multiDexEnabled true
         versionName "1.0"
         missingDimensionStrategy 'react-native-camera', 'general'
+    }
+    flavorDimensions "version"
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            resValue "string", "app_name", "Covi-ID Dev"
+            resValue "string", "build_config_package", "com.coviid"
+            resValue "string", "CodePushDeploymentKey", codepushDev
+        }
+        staging {
+            applicationIdSuffix ".staging"
+            resValue "string", "app_name", "Covi-ID Beta"
+            resValue "string", "build_config_package", "com.coviid"
+            resValue "string", "CodePushDeploymentKey", codepushStaging
+        }
+        prod {
+            resValue "string", "app_name", "Covi-ID"
+            resValue "string", "build_config_package", "com.coviid"
+            resValue "string", "CodePushDeploymentKey", codepushProd
+        }
     }
     signingConfigs {
         release {
@@ -144,7 +167,11 @@ android {
         }
     }
     buildTypes {
+        debug {
+            buildConfigField "String", "CODEPUSH_KEY", '""'
+        }
         release {
+            matchingFallbacks = ['release']
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
             signingConfig signingConfigs.release

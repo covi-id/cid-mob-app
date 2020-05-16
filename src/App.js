@@ -36,4 +36,4 @@ const App = () => {
   );
 };
 
-export default codePush(App);
+export default codePush({ installMode: codePush.InstallMode.IMMEDIATE, updateDialog: true })(App);
