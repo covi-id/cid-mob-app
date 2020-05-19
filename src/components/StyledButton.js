@@ -90,8 +90,8 @@ export default function StyledButton({
       color:
         titleColor || (basic ? colors.grey : dark || !alternative || disabled ? colors.background : colors.primary),
       fontFamily: fonts.primarySemibold,
-      paddingLeft: sizes.margin * 1.5,
-      paddingRight: sizes.margin * 1.5,
+      paddingLeft: 15,
+      paddingRight: 15,
       paddingTop: sizes.margin / 2,
       paddingBottom: sizes.margin / 2,
       opacity: loadingValue.opacity,
