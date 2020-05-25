@@ -27,8 +27,11 @@ export default function StatusScreen({ navigation, route }) {
       navigation.goBack();
     } catch (err) {
       // display snackbar
+      message =
+        err.response && err.response.data && err.response.data.meta
+          ? err.response.data.meta.message
+          : 'Something went wrong.';
       console.log(err);
-      message = 'Something went wrong';
       messageColor = theme.colors.red;
       crashlytics().log(`Could not check in user. ${JSON.stringify(profile)}`);
       crashlytics().recordError(err);
@@ -53,8 +56,11 @@ export default function StatusScreen({ navigation, route }) {
       navigation.goBack();
     } catch (err) {
       // display snackbar
+      message =
+        err.response && err.response.data && err.response.data.meta
+          ? err.response.data.meta.message
+          : 'Something went wrong.';
       console.log(err);
-      message = 'Something went wrong';
       messageColor = theme.colors.red;
       crashlytics().log(`Could not check out user. ${JSON.stringify(profile)}`);
       crashlytics().recordError(err);
