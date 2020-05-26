@@ -30,6 +30,85 @@
             {
               "client_id": "641614266615-48s9u4obusmo9i4e7tre54dr5di70k9k.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "641614266615-p2r34csmagbf6icv9lk5urmffo4r4mis.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.coviid.verifier"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641614266615:android:70916c32215b730d6cd3f2",
+        "android_client_info": {
+          "package_name": "com.coviid.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641614266615-48s9u4obusmo9i4e7tre54dr5di70k9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3uRRF9HlnQJF1Mbe4h1PJ54ScIvbPXuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641614266615-48s9u4obusmo9i4e7tre54dr5di70k9k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "641614266615-p2r34csmagbf6icv9lk5urmffo4r4mis.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.coviid.verifier"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:641614266615:android:9c6b187d6cc8f8066cd3f2",
+        "android_client_info": {
+          "package_name": "com.coviid.staging"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "641614266615-48s9u4obusmo9i4e7tre54dr5di70k9k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3uRRF9HlnQJF1Mbe4h1PJ54ScIvbPXuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "641614266615-48s9u4obusmo9i4e7tre54dr5di70k9k.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "641614266615-p2r34csmagbf6icv9lk5urmffo4r4mis.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.coviid.verifier"
+              }
             }
           ]
         }

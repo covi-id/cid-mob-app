@@ -3,20 +3,12 @@ import { View, StatusBar } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import Snackbar from 'react-native-snackbar';
 import crashlytics from '@react-native-firebase/crashlytics';
-import DeviceInfo from 'react-native-device-info';
-import { submitQR, getOrganisationQR, subtractCount } from '../../services/covid';
+import { submitQR, getOrganisationQR } from '../../services/covid';
 import { useGlobalStore } from '../../store';
 import actions from '../../store/actions';
 import ScanModal from './components/ScanModal';
-import {
-  getOrganisation,
-  saveOrganisation,
-  deleteOrganisation,
-  getURL,
-  saveURL,
-  deleteURL,
-} from '../../services/storage';
-import { StyledButton, Container, Heading, StyledText, StyledCheckboxSelection, BackButton } from '../../components';
+import { getOrganisation, saveOrganisation, deleteOrganisation } from '../../services/storage';
+import { StyledButton, Container, Heading, StyledText, BackButton } from '../../components';
 import {
   LogoSvg,
   PurpleCircleSvg,
@@ -32,7 +24,6 @@ export default function LandingScreen({ navigation, route }) {
   const [walletId, setWalletId] = useState();
   const [loading, setLoading] = useState(false);
   const [scanning, setScanning] = useState(false);
-  const [statusVisible, setStatusVisible] = useState();
   const [userType, setUserType] = useState(
     route && route.params && route.params.userType ? route.params.userType : 'user'
   );
@@ -41,7 +32,6 @@ export default function LandingScreen({ navigation, route }) {
   const { organisation, url } = store;
   const theme = useTheme();
   const styles = styleSheet(theme);
-  const deviceId = DeviceInfo.getUniqueId();
 
   // -- get organisation from storage
   useEffect(() => {
@@ -51,13 +41,6 @@ export default function LandingScreen({ navigation, route }) {
   async function loadOrganisation() {
     try {
       const data = await getOrganisation();
-      // let endpoint = url;
-      // if (!endpoint) {
-      //   endpoint = await getURL();
-      //   if (endpoint) {
-      //     dispatch(actions.setURL(endpoint));
-      //   }
-      // }
       if (data) {
         const response = await getOrganisationQR(data.id);
         if (
@@ -76,9 +59,7 @@ export default function LandingScreen({ navigation, route }) {
 
   async function logout() {
     setTimeout(() => {
-      // dispatch(actions.setURL(null));
       dispatch(actions.setOrganisation(null));
-      // deleteURL();
       deleteOrganisation();
     }, 500);
     navigation.reset({ index: 0, routes: [{ name: 'Landing', params: { reset: true } }] });
@@ -124,21 +105,12 @@ export default function LandingScreen({ navigation, route }) {
       }
 
       try {
-        // let params;
-        // if (organisation && organisation.id) {
-        //   params = { organisationId: organisation.id, devideIdentifier: deviceId };
-        // }
         const parsed = JSON.parse(data);
         const response = await submitQR(parsed.walletId, parsed.key);
         if (response && response.data && response.data.resultStatus) {
           setWalletId(parsed.walletId);
           setProfile(response.data);
           navigation.navigate('Status', { profile: response.data, organisation, url, walletId, loadOrganisation });
-
-          // setStatusVisible(true);
-          // if (organisation && organisation.id) {
-          //   loadOrganisation();
-          // }
         } else {
           Snackbar.show({
             text: 'Could not get results. Please make sure the QR code is correct.',
