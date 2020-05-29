@@ -3,14 +3,15 @@ import { View, StatusBar } from 'react-native';
 import { useTheme } from '@react-navigation/native';
 import Snackbar from 'react-native-snackbar';
 import crashlytics from '@react-native-firebase/crashlytics';
-import { StyledButton, Container, Heading, BackButton } from '../../components';
+import { parsePhoneNumberFromString } from 'libphonenumber-js';
+import { StyledButton, Container, Heading, StyledText } from '../../components';
 import MobileInput from './components/MobileInput';
-import { LogoSvg, ScanSvg, DotsSvg, StartBackgroundSvg } from '../../assets/svgs';
+import { LogoSvg, DotsSvg, StartBackgroundSvg, PurpleCircleSvg } from '../../assets/svgs';
 import { checkInMobile, checkOutMobile } from '../../services/covid';
 
 export default function MobileScreen({ navigation, route }) {
   const [loading, setLoading] = useState(false);
-  const [input, setInput] = useState();
+  const [input, setInput] = useState('');
   const { profile, organisation, url, loadOrganisation } = route.params;
   const theme = useTheme();
   const styles = styleSheet(theme);
@@ -20,7 +21,8 @@ export default function MobileScreen({ navigation, route }) {
     let message = 'Successfully checked in';
     let messageColor = theme.colors.green;
     try {
-      await checkInMobile(organisation.id, input, url);
+      const formatted = parsePhoneNumberFromString(input, 'ZA').formatInternational().replace(/\s/g, '');
+      await checkInMobile(organisation.id, formatted, url);
       loadOrganisation();
       navigation.goBack();
     } catch (err) {
@@ -46,7 +48,8 @@ export default function MobileScreen({ navigation, route }) {
     let message = 'Successfully checked out';
     let messageColor = theme.colors.green;
     try {
-      await checkOutMobile(organisation.id, input, url);
+      const formatted = parsePhoneNumberFromString(input, 'ZA').formatInternational().replace(/\s/g, '');
+      await checkOutMobile(organisation.id, formatted, url);
       loadOrganisation();
       navigation.goBack();
     } catch (err) {
@@ -68,9 +71,8 @@ export default function MobileScreen({ navigation, route }) {
   }
 
   function validInput() {
-    const match = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im;
-    const regex = new RegExp(match);
-    return input && input.length >= 10 && regex.test(input);
+    const valid = parsePhoneNumberFromString(input, 'ZA');
+    return valid && valid.isValid();
   }
 
   function onInputChange(value) {
@@ -85,7 +87,7 @@ export default function MobileScreen({ navigation, route }) {
       <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
       <StartBackgroundSvg style={styles.background} />
       <DotsSvg style={styles.dotsSvg} />
-      <BackButton style={styles.backButton} navigation={navigation} />
+      <PurpleCircleSvg style={styles.purpleSvg} />
       <Container>
         <View style={styles.logoSvg}>
           <LogoSvg />
@@ -93,19 +95,22 @@ export default function MobileScreen({ navigation, route }) {
         <View style={styles.contentContainer}>
           <View style={styles.contentContainer}>
             <View style={{ alignItems: 'center' }}>
-              <ScanSvg style={styles.scanSvg} />
               <Heading bold style={styles.heading}>
-                Enter mobile
+                Mobile number
               </Heading>
+              <StyledText bold style={styles.text}>
+                Enter Mobile
+              </StyledText>
+              <MobileInput placeholder="Enter Number" value={input} max={16} onChange={onInputChange} />
             </View>
-            <MobileInput placeholder="Mobile Entry" value={input} max={16} onChangeText={onInputChange} />
             <View style={{ marginTop: theme.sizes.margin }}>
               <StyledButton
                 disabled={!validInput()}
                 loading={loading}
                 loadingWidth={160}
-                title="In"
+                title="Check-In"
                 onPress={inPress}
+                backgroundColor={theme.colors.secondary}
               />
               <StyledButton
                 loading={loading}
@@ -115,11 +120,12 @@ export default function MobileScreen({ navigation, route }) {
                 backgroundColor={theme.colors.red}
                 alternative
                 max={16}
-                title="Out"
+                title="Check-Out"
                 onPress={outPress}
               />
             </View>
           </View>
+          <StyledButton basic style={styles.button} onPress={() => navigation.goBack()} title="Cancel" />
         </View>
       </Container>
     </View>
@@ -136,72 +142,31 @@ const styleSheet = ({ sizes, colors }) => ({
     justifyContent: 'space-evenly',
     paddingBottom: sizes.margin,
   },
-  selectionContainer: {
-    marginBottom: sizes.margin,
-  },
-  scanContainer: {
-    alignItems: 'center',
-  },
-  counterContainer: {
-    marginTop: sizes.margin / 2,
-    marginBottom: sizes.margin / 2,
-  },
   background: {
     position: 'absolute',
   },
-  backgroundOrganisation: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
   heading: {
-    color: colors.textSecondary,
-    marginTop: sizes.margin,
-    marginBottom: sizes.margin,
+    color: colors.primary,
+    marginBottom: sizes.margin / 2,
     fontSize: 34,
+    alignSelf: 'flex-start',
   },
-  headingOrganisation: {
-    margin: sizes.margin,
+  text: {
+    marginBottom: sizes.margin / 2,
+    alignSelf: 'flex-start',
   },
-  headingScanOrganisation: {
-    color: colors.textSecondary,
-    margin: sizes.margin,
-    fontSize: 28,
-  },
-  headingCounterText: {
-    color: colors.textSecondary,
-    fontSize: 24,
-  },
-  counterText: {
-    fontSize: 70,
-    color: colors.grey,
-  },
-  totalText: {
-    fontSize: 18,
-    color: colors.grey,
-  },
-  logoSvg: {
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-  },
-  scanSvg: {
-    marginTop: sizes.margin,
-  },
+  logoSvg: { marginTop: -10 },
   purpleSvg: {
     right: -sizes.margin,
     top: sizes.margin * 2.5,
-    position: 'absolute',
-  },
-  yellowsvg: {
-    bottom: sizes.margin * 2,
-    left: -5,
     position: 'absolute',
   },
   dotsSvg: {
     bottom: sizes.margin * 2,
     right: sizes.margin,
     position: 'absolute',
+  },
+  button: {
+    alignSelf: 'center',
   },
 });

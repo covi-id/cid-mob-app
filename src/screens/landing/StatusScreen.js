@@ -55,6 +55,7 @@ export default function StatusScreen({ navigation, route }) {
       loadOrganisation();
       navigation.goBack();
     } catch (err) {
+      console.log(err.response);
       // display snackbar
       message =
         err.response && err.response.data && err.response.data.meta
@@ -82,26 +83,26 @@ export default function StatusScreen({ navigation, route }) {
         <View>
           <View style={styles.titleContainer}>
             <Heading dark bold>{`${firstName} ${lastName}`}</Heading>
-            <View style={styles.iconContainer}>
-              <StyledIcon status={status} />
-              <StyledText bold dark style={styles.text}>
-                {status && status.toUpperCase()}
-              </StyledText>
-            </View>
           </View>
           <ProfileImage style={styles.image} status={status} source={photoUrl} />
         </View>
         <View style={styles.buttonContainer}>
           {organisation && (
             <>
-              <StyledButton loading={loading} loadingWidth={160} title="In" onPress={inPress} />
+              <StyledButton
+                backgroundColor={theme.colors.secondary}
+                loading={loading}
+                loadingWidth={160}
+                title="Check-In"
+                onPress={inPress}
+              />
               <StyledButton
                 loading={loading}
                 loadingWidth={160}
                 titleColor={theme.colors.background}
                 backgroundColor={theme.colors.red}
                 alternative
-                title="Out"
+                title="Check-Out"
                 onPress={outPress}
               />
             </>
@@ -121,7 +122,7 @@ export default function StatusScreen({ navigation, route }) {
 const styleSheet = ({ colors, sizes }, status) => ({
   container: {
     flex: 1,
-    backgroundColor: colors[status],
+    backgroundColor: colors.primary,
   },
   iconContainer: {
     flexDirection: 'row',
@@ -134,7 +135,7 @@ const styleSheet = ({ colors, sizes }, status) => ({
   },
   backgroundContainer: {
     backgroundColor: colors.background,
-    height: height / 1.6,
+    height: height / 1.45,
     width,
     position: 'absolute',
     left: 0,

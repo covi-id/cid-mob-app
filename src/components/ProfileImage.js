@@ -53,7 +53,6 @@ export default function ProfileImage({ status = 'red', source, ...props }) {
         />
         {loading && <ActivityIndicator style={styles.loading} color={colors.background} />}
       </View>
-      <StyledIcon status={status} alternative style={styles.icon} />
     </View>
   );
 }

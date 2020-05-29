@@ -31,7 +31,7 @@ export default function LandingScreen({ navigation, route }) {
   const { dispatch, store } = useGlobalStore();
   const { organisation, url } = store;
   const theme = useTheme();
-  const styles = styleSheet(theme);
+  const styles = styleSheet({ ...theme, route });
 
   // -- get organisation from storage
   useEffect(() => {
@@ -198,26 +198,34 @@ export default function LandingScreen({ navigation, route }) {
         <View style={styles.organisationContainer}>
           <View style={styles.counterContainer}>
             <Heading bold style={styles.headingCounterText}>
-              Counter
+              People scanned
             </Heading>
-            <StyledText style={styles.counterText}>{organisation.balance ?? 0}</StyledText>
+            <StyledText bold style={styles.counterText}>
+              {organisation.balance ?? 0}
+            </StyledText>
             <StyledText bold style={styles.totalText}>{`Total Scans  -  ${organisation.total ?? 0}`}</StyledText>
           </View>
           <View>
-            <StyledButton loading={loading} loadingWidth={180} alternative title="Scan" onPress={scan} />
             <StyledButton
               loading={loading}
+              titleColor={theme.colors.textSecondary}
+              loadingWidth={220}
               alternative
-              loadingWidth={180}
-              backgroundColor="#E0DDF7"
-              title="Mobile Entry"
+              title="Scan Covi-ID"
+              onPress={scan}
+            />
+            <StyledButton
+              loading={loading}
+              loadingWidth={220}
+              backgroundColor={theme.colors.textSecondary}
+              title="Use mobile number"
               onPress={() => navigation.navigate('Mobile', { organisation, url, walletId, loadOrganisation })}
             />
           </View>
         </View>
         <View>
-          <StyledText bold>{`Logged into ${organisation.name}`}</StyledText>
-          <StyledButton titleColor={theme.colors.grey} basic title="Log out" onPress={logout} />
+          <StyledText style={styles.organisationText}>{`Logged into ${organisation.name}`}</StyledText>
+          <StyledButton titleColor={theme.colors.textSecondary} basic title="Log out" onPress={logout} />
         </View>
       </View>
     );
@@ -255,7 +263,7 @@ export default function LandingScreen({ navigation, route }) {
   );
 }
 
-const styleSheet = ({ sizes, colors }) => ({
+const styleSheet = ({ sizes, colors, route }) => ({
   container: {
     flex: 1,
   },
@@ -281,14 +289,19 @@ const styleSheet = ({ sizes, colors }) => ({
     marginTop: sizes.margin / 2,
     marginBottom: sizes.margin / 2,
   },
+  organisationText: {
+    color: colors.grey,
+    fontSize: 14,
+    marginBottom: -10,
+  },
   background: {
     position: 'absolute',
   },
   backgroundOrganisation: {
     position: 'absolute',
-    bottom: 0,
     left: 0,
     right: 0,
+    top: 0,
   },
   heading: {
     color: colors.textSecondary,
@@ -316,11 +329,7 @@ const styleSheet = ({ sizes, colors }) => ({
     fontSize: 18,
     color: colors.grey,
   },
-  logoSvg: {
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-  },
+  logoSvg: { marginTop: -10, alignSelf: route.params && route.params.userType === 'organisation' && 'center' },
   scanSvg: {},
   purpleSvg: {
     right: -sizes.margin,
