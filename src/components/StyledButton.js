@@ -47,7 +47,7 @@ export default function StyledButton({
     contentContainer: {
       height: iconLeft ? 60 : 50,
       backgroundColor: disabled
-        ? colors.grey
+        ? '#F1F0F8'
         : backgroundColor ||
           (auth
             ? '#27066B'
@@ -87,8 +87,7 @@ export default function StyledButton({
       opacity: loadingValue.opacity,
     },
     text: {
-      color:
-        titleColor || (basic ? colors.grey : dark || !alternative || disabled ? colors.background : colors.primary),
+      color: titleColor || (basic ? colors.grey : dark || !alternative || disabled ? '#DCDAE9' : colors.primary),
       fontFamily: fonts.primarySemibold,
       paddingLeft: 15,
       paddingRight: 15,

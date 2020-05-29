@@ -116,9 +116,7 @@ export default function MobileScreen({ navigation, route }) {
                 loading={loading}
                 loadingWidth={160}
                 disabled={!validInput()}
-                titleColor={theme.colors.background}
                 backgroundColor={theme.colors.red}
-                alternative
                 max={16}
                 title="Check-Out"
                 onPress={outPress}
