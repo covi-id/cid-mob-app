@@ -21,6 +21,7 @@ export default function ProfileImage({ status = 'red', source, ...props }) {
     image: {
       resizeMode: 'cover',
       borderWidth: 2,
+      backgroundColor: colors.primary,
       borderColor: colors.background,
       borderRadius: width / 2,
       width: width / 1.6,

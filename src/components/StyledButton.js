@@ -87,7 +87,9 @@ export default function StyledButton({
       opacity: loadingValue.opacity,
     },
     text: {
-      color: titleColor || (basic ? colors.grey : dark || !alternative || disabled ? '#DCDAE9' : colors.primary),
+      color:
+        titleColor ||
+        (basic ? colors.grey : disabled ? '#DCDAE9' : dark || !alternative ? colors.background : colors.primary),
       fontFamily: fonts.primarySemibold,
       paddingLeft: 15,
       paddingRight: 15,
