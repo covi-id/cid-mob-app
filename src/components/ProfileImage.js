@@ -17,13 +17,12 @@ export default function ProfileImage({ status = 'red', source, ...props }) {
     },
     imageContainer: {
       overflow: 'hidden',
-      borderRadius: width / 3,
-      borderWidth: 2,
-      backgroundColor: colors[status],
-      borderColor: colors.background,
     },
     image: {
       resizeMode: 'cover',
+      borderWidth: 2,
+      borderColor: colors.background,
+      borderRadius: width / 2,
       width: width / 1.6,
       height: width / 1.6,
     },

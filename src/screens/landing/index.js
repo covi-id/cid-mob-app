@@ -329,7 +329,10 @@ const styleSheet = ({ sizes, colors, route }) => ({
     fontSize: 18,
     color: colors.grey,
   },
-  logoSvg: { marginTop: -10, alignSelf: route.params && route.params.userType === 'organisation' && 'center' },
+  logoSvg: {
+    marginTop: -10,
+    alignSelf: route.params && route.params.userType === 'organisation' ? 'center' : 'flex-start',
+  },
   scanSvg: {},
   purpleSvg: {
     right: -sizes.margin,
