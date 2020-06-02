@@ -28,7 +28,10 @@ export default function MobileScreen({ navigation, route }) {
     } catch (err) {
       // display snackbar
       console.log(err);
-      message = 'Something went wrong';
+      message =
+        err.response && err.response.data && err.response.data.meta
+          ? err.response.data.meta.message
+          : 'Something went wrong.';
       messageColor = theme.colors.red;
       crashlytics().log(`Could not check in user. ${JSON.stringify(profile)}`);
       crashlytics().recordError(err);
@@ -55,7 +58,10 @@ export default function MobileScreen({ navigation, route }) {
     } catch (err) {
       // display snackbar
       console.log(err);
-      message = 'Something went wrong';
+      message =
+        err.response && err.response.data && err.response.data.meta
+          ? err.response.data.meta.message
+          : 'Something went wrong.';
       messageColor = theme.colors.red;
       crashlytics().log(`Could not check out user. ${JSON.stringify(profile)}`);
       crashlytics().recordError(err);

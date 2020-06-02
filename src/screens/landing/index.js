@@ -110,7 +110,13 @@ export default function LandingScreen({ navigation, route }) {
         if (response && response.data && response.data.resultStatus) {
           setWalletId(parsed.walletId);
           setProfile(response.data);
-          navigation.navigate('Status', { profile: response.data, organisation, url, walletId, loadOrganisation });
+          navigation.navigate('Status', {
+            profile: response.data,
+            organisation,
+            url,
+            walletId: parsed.walletId,
+            loadOrganisation,
+          });
         } else {
           Snackbar.show({
             text: 'Could not get results. Please make sure the QR code is correct.',
