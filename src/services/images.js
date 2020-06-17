@@ -1,4 +1,4 @@
-// import AWS from 's3';
+// const AWS = require('aws-sdk/dist/aws-sdk-react-native');
 
 // const s3 = new AWS.S3();
 // const s3AccessKeyId = 'AKIAVA42VALQLKPHWWZL';
@@ -17,8 +17,11 @@ export async function getTempImageUrl(fileName) {
     /* const url = await s3.getSignedUrlPromise('GetObject', params);
     if (!url) {
       throw new Error('Object not found');
-    }
-    return { url }; */
+    } */
+    // const url = '';
     return '';
-  } catch (error) {}
+  } catch (error) {
+    console.warn(error);
+  }
+  return '';
 }
