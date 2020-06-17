@@ -110,10 +110,18 @@ def enableSeparateBuildPerCPUArchitecture = false
  */
 def enableProguardInReleaseBuilds = false
 
-def pass = getPassword("Admin","android_coviid_keystore")
-def codepushDev = getPassword("Admin","android_coviid_codepush_dev")
-def codepushStaging = getPassword("Admin","android_coviid_codepush_staging")
-def codepushProd = getPassword("Admin","android_coviid_codepush_prod")
+def pass = ""
+def codepushDev = ""
+def codepushStaging = ""
+def codepushProd = ""
+try {
+    // only works on mac
+    pass = getPassword("Admin","android_coviid_keystore")
+    codepushDev = getPassword("Admin","android_coviid_codepush_dev")
+    codepushStaging = getPassword("Admin","android_coviid_codepush_staging")
+    codepushProd = getPassword("Admin","android_coviid_codepush_prod")
+} catch (Exception e) {}
+
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
