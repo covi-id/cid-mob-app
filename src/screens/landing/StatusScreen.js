@@ -22,7 +22,7 @@ export default function StatusScreen({ navigation, route }) {
     let message = 'Successfully checked in';
     let messageColor = theme.colors.green;
     try {
-      await checkIn(organisation.id, walletId, url);
+      await checkIn(/* organisation.id, */ walletId);
       loadOrganisation();
       navigation.goBack();
     } catch (err) {
@@ -51,7 +51,7 @@ export default function StatusScreen({ navigation, route }) {
     let message = 'Successfully checked out';
     let messageColor = theme.colors.green;
     try {
-      await checkOut(organisation.id, walletId, url);
+      await checkOut(/* organisation.id, */ walletId);
       loadOrganisation();
       navigation.goBack();
     } catch (err) {
@@ -87,7 +87,8 @@ export default function StatusScreen({ navigation, route }) {
           <ProfileImage style={styles.image} status={status} source={photoUrl} />
         </View>
         <View style={styles.buttonContainer}>
-          {organisation && (
+          {/* organisation && */}
+          {
             <>
               <StyledButton
                 backgroundColor={theme.colors.secondary}
@@ -106,7 +107,7 @@ export default function StatusScreen({ navigation, route }) {
                 onPress={outPress}
               />
             </>
-          )}
+          }
         </View>
         <StyledButton
           basic

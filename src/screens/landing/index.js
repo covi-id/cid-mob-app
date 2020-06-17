@@ -106,7 +106,7 @@ export default function LandingScreen({ navigation, route }) {
 
       try {
         const parsed = JSON.parse(data);
-        const response = await submitQR(parsed.walletId, parsed.key);
+        const response = await submitQR(parsed.walletId);
         if (response && response.data && response.data.resultStatus) {
           setWalletId(parsed.walletId);
           setProfile(response.data);
@@ -163,7 +163,7 @@ export default function LandingScreen({ navigation, route }) {
           style={{ marginBottom: 100, marginTop: -100 }}
           onPress={scan}
         />
-        <StyledButton
+        {/* <StyledButton
           loading={loading}
           loadingWidth={150}
           basic
@@ -172,7 +172,7 @@ export default function LandingScreen({ navigation, route }) {
           onPress={() => {
             navigation.push('Landing', { userType: 'organisation' });
           }}
-        />
+        /> */}
       </View>
     );
   }
