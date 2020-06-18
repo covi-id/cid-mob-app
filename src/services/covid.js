@@ -142,12 +142,15 @@ export async function submitQR(userId) {
       const decryptedData = decrypt(taskPubKey, privateKey, getWalletStatus.encryptedOutput);
       console.log('Decrypted Output');
       console.log(decryptedData);
+      const photoUrl = await getTempImageUrl(userId);
+      console.log('Photo Url');
+      console.log(photoUrl);
       return {
         data: {
           ...decryptedData,
           firstName: decryptedData.first_name,
           lastName: decryptedData.last_name,
-          photoUrl: decryptedData.photo_reference || (await getTempImageUrl(userId)),
+          photoUrl: photoUrl || decryptedData.photo_reference,
           resultStatus: decryptedData.status,
         },
       };
