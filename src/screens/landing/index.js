@@ -107,7 +107,7 @@ export default function LandingScreen({ navigation, route }) {
       try {
         const parsed = JSON.parse(data);
         const response = await submitQR(parsed.walletId);
-        if (response && response.data && response.data.resultStatus) {
+        if (response && response.data /* && response.data.resultStatus */) {
           setWalletId(parsed.walletId);
           setProfile(response.data);
           navigation.navigate('Status', {
